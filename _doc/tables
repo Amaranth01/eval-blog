@@ -1,0 +1,28 @@
+Article
+  - id -> INT
+  - title  -> string
+  - content -> text
+  - author -> Relation
+
+
+User
+    - id -> entier
+    - email -> string
+    - username ->string
+    - password -> string
+
+Role
+    - id -> entier
+    - role_name -> string
+
+User_role
+    - id -> entier
+    - id_user -> entier
+    - id_role -> entier
+
+
+Comments
+    - id -> entier
+    - content -> text
+    - author -> Relation
+    - article -> Relation

@@ -1,0 +1,35 @@
+- Article
+	----------
+	    --> Ajouter
+	    --> Supprimer
+	    --> Modifier
+  	    --> Lire
+
+	- Utilisateur
+	-------------
+	    --> Un utilisateur
+	        -> peut s'enregistrer
+	        -> ne pas être connecté pour lire un article
+	        -> devra être connecté pour:
+            		    --> écrire un commentaire
+
+    - Role
+    ---------
+    		- Un role devra pouvoir être attribué / retiré
+    		- Un role par défaut sera attribué à la création d'un compte
+
+    - Système d'administration:
+    ---------------------------
+    		- Supprimer un article
+    		- Supprimer un commentaire
+    		- Supprimer un utilisateur
+    		- Attribuer les roles
+
+    - Commentaire
+    ---------------
+    		- Pourra être écrit
+
+
+    - Page principale :
+    -------------------
+    		- Devra contenir les liens pour voir la totalité des articles.
