@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Model\Manager;
+namespace App\Model\Manager;
 
 class Roles {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Model\Entity;
+namespace App\Model\Entity;
 
 class AbstractEntity {
 
