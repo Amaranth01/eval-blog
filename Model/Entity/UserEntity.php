@@ -1,11 +1,26 @@
 <?php
 
-namespace App\Model\Entity;
-
-class Users {
+class UserEntity {
+    private int $id;
     private string $email;
     private string $username;
     private string $password;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string
@@ -18,10 +33,9 @@ class Users {
     /**
      * @param string $email
      */
-    public function setEmail(string $email): self
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-        return $this;
     }
 
     /**
@@ -35,10 +49,9 @@ class Users {
     /**
      * @param string $username
      */
-    public function setUsername(string $username): self
+    public function setUsername(string $username): void
     {
         $this->username = $username;
-        return $this;
     }
 
     /**
@@ -52,9 +65,10 @@ class Users {
     /**
      * @param string $password
      */
-    public function setPassword(string $password): self
+    public function setPassword(string $password): void
     {
         $this->password = $password;
-        return $this;
     }
+
+
 }
