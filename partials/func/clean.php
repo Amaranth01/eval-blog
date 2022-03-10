@@ -1,13 +1,18 @@
 <?php
 
- function clean(String $data): string {
-    $data = trim($data);
-    $data = strip_tags($data);
-    $data = htmlentities($data);
+/**
+ * @param String $data
+ * @return string
+ */
+function clean(string $data): string{
 
-    if($data < 0 || $data>100) {
-        $data = 15;
-    }
+        $data = trim($data);
+        $data = strip_tags($data);
+        $data = htmlentities($data);
 
-    return $data;
+        if ($data < 0 || $data > 100) {
+            $data = 15;
+        }
+
+        return $data;
 }

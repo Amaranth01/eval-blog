@@ -11,21 +11,20 @@
 <body>
 
 <header>
-    <h1>L'univers des dragons</h1>
     <img src="https://tse4.mm.bing.net/th?id=OIP.irflZb_6y0rOHeixdaVPbwHaFj&pid=Api" alt="" id="img">
-
 </header>
 
 <nav>
     <ul>
-        <li><a href="base.html.php">Page d'accueil</a></li>
-        <li><a href="different-dragon/europeen-dragon.html.php">Les dragon européens</a></li>
-        <li><a href="different-dragon/chineese-dragon.html.php">Les dragons asiatiques</a></li>
-        <li><a href="different-dragon/other.html.php">Les autres dragons</a></li>
-        <li><a href="conn/connexion.html.php">Connexion/Inscription</a></li>
+        <li><a href="/index.php?c=base">Page d'accueil</a></li>
+        <li><a href="/index.php?c=europeen-dragon">Les dragon européens</a></li>
+        <li><a href="/index.php?c=chineese-dragon">Les dragons asiatiques</a></li>
+        <li><a href="/index.php?c=other">Les autres dragons</a></li>
+        <li><a href="/index.php?c=connexion">Connexion/Inscription</a></li>
     </ul>
 </nav>
 
+<h2>Les derniers articles </h2>
 <div><?$article?></div>
 
 <script src="/asset/js.app.js"></script>
