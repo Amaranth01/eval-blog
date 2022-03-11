@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<h1>L'univers des dragons</h1>
+
 <header>
     <img src="https://tse4.mm.bing.net/th?id=OIP.irflZb_6y0rOHeixdaVPbwHaFj&pid=Api" alt="" id="img">
 </header>
@@ -25,7 +27,7 @@
 </nav>
 
 <h2>Les derniers articles </h2>
-<div><?$article?></div>
+<div><? $article ?></div>
 
 <script src="/asset/js.app.js"></script>
 </body>

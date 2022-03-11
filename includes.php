@@ -10,6 +10,11 @@ require __DIR__ . '/Controller/RoleController.php';
 require __DIR__ . '/Controller/UserController.php';
 require __DIR__ . '/Controller/ErrorController.php';
 require __DIR__ . '/Controller/HomeController.php';
+require __DIR__ . '/Controller/OtherController.php';
+require __DIR__ . '/Controller/EuropeenController.php';
+require __DIR__ . '/Controller/ChineeseController.php';
+require __DIR__ . '/Controller/ConnexionController.php';
+require __DIR__ . '/Controller/RegisterController.php';
 
 require __DIR__ . '/Model/Entity/ArticleEntity.php';
 require __DIR__ . '/Model/Entity/CommentsEntity.php';
