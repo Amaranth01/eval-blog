@@ -21,4 +21,9 @@ abstract class AbstractController {
         $html = ob_get_clean();
         require __DIR__ . '/../View/base.html.php';
     }
+
+    public function isFormSubmitted(): bool
+    {
+        return isset($_POST['submit']);
+    }
 }

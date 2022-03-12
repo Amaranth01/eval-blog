@@ -16,13 +16,14 @@ require __DIR__ . '/Controller/ChineeseController.php';
 require __DIR__ . '/Controller/ConnexionController.php';
 require __DIR__ . '/Controller/RegisterController.php';
 
-require __DIR__ . '/Model/Entity/ArticleEntity.php';
-require __DIR__ . '/Model/Entity/CommentsEntity.php';
-require __DIR__ . '/Model/Entity/RoleEntity.php';
-require __DIR__ . '/Model/Entity/UserEntity.php';
+require __DIR__ . '/Model/Entity/AbstractEntity.php';
+require __DIR__ . '/Model/Entity/Article.php';
+require __DIR__ . '/Model/Entity/Comment.php';
+require __DIR__ . '/Model/Entity/Role.php';
+require __DIR__ . '/Model/Entity/User.php';
 
 require __DIR__ . '/Model/Manager/ArticleManager.php';
-require __DIR__ . '/Model/Manager/CommentsManager.php';
+require __DIR__ . '/Model/Manager/CommentManager.php';
 require __DIR__ . '/Model/Manager/RoleManager.php';
 require __DIR__ . '/Model/Manager/UserManager.php';
 

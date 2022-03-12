@@ -6,13 +6,13 @@
  */
 function clean(string $data): string{
 
-        $data = trim($data);
-        $data = strip_tags($data);
-        $data = htmlentities($data);
+    $data = trim($data);
+    $data = strip_tags($data);
+    $data = htmlentities($data);
 
-        if ($data < 0 || $data > 100) {
-            $data = 15;
-        }
+    if ($data < 0 || $data > 100) {
+        $data = 15;
+    }
 
-        return $data;
+    return $data;
 }

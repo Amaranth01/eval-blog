@@ -11,6 +11,5 @@
         </form>
 
     <div>
-        <p>Pas de compte ? <a href="">Inscrivez-vous ici.</a></p>
+        <p>Pas de compte ? <a href="/index.php?c=register">Inscrivez-vous ici.</a></p>
     </div>
-
