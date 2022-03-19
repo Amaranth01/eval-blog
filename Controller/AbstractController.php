@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-abstract class AbstractController {
+use App\Model\Entity\User;
 
-     /**
-     * @param string $view
-     * @param array $data
-     * @return void
-     */
+abstract class AbstractController
+{
+    abstract public function index();
+
     /**
      * @param string $template
      * @param array $data
@@ -22,8 +21,51 @@ abstract class AbstractController {
         require __DIR__ . '/../View/base.html.php';
     }
 
+    protected function clean(string $data): string
+    {
+        $data = trim($data);
+        $data = strip_tags($data);
+        $data = htmlentities($data);
+
+        if ($data < 0 || $data > 100) {
+            $data = 15;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return bool
+     */
     public function isFormSubmitted(): bool
     {
         return isset($_POST['submit']);
     }
+
+    /**
+     * Returns a form field value
+     * @param string $field
+     * @param null $default
+     * @return mixed|string
+     */
+    public function getFormField(string $field, $default = null)
+    {
+        if (!isset($_POST[$field])) {
+            return (null === $default) ? '' : $default;
+        }
+
+        return $_POST[$field];
+    }
+
+    /**
+     * Checks if a user is already logged in
+     * @return bool
+     */
+    public static function userConnected(): bool
+    {
+        return isset($_SESSION['user']) && null !== ($_SESSION['user'])->getId();
+    }
+
+
+
 }

@@ -27,8 +27,6 @@ class ArticleManager
                     ->setId($articleData['id'])
                     ->setAuthor($userManager->getUser($articleData['user_fk']))
                     ->setContent($articleData['content'])
-                    ->setDateAdd(DateTime::createFromFormat($format, $articleData['date_add']))
-                    ->setDateUpdate(DateTime::createFromFormat($format, $articleData['date_update']))
                     ->setTitle($articleData['title'])
                 ;
             }
@@ -37,16 +35,15 @@ class ArticleManager
         return $articles;
     }
 
-
     /**
      * Add a new article into the db.
      * @param Article $article
      * @return void
      */
-    public static function addNewArticle(Article &$article): bool
+    public static function addNewArticle(Article $article): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO ". self::TABLE ." (title, content, author) VALUES (:title, :content, :author)
+            INSERT INTO ". self::TABLE ." (title, content, user_fk) VALUES (:title, :content, :author)
         ");
 
         $stmt->bindValue(':title', $article->getTitle());

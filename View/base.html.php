@@ -12,23 +12,26 @@
 
 <h1>L'univers des dragons</h1>
 
-<header>
-    <img src="https://tse4.mm.bing.net/th?id=OIP.irflZb_6y0rOHeixdaVPbwHaFj&pid=Api" alt="" id="img">
-</header>
+  <div id="container">
+        <img id="carousel" src="" alt="">
+  </div>
+
 
 <nav>
     <ul>
-        <li><a href="/index.php?c=base">Page d'accueil</a></li>
-        <li><a href="/index.php?c=europeen-dragon">Les dragon européens</a></li>
-        <li><a href="/index.php?c=chineese-dragon">Les dragons asiatiques</a></li>
-        <li><a href="/index.php?c=other">Les autres dragons</a></li>
-        <li><a href="/index.php?c=connexion">Connexion/Inscription</a></li>
+        <li><a href="/index.php?c=home&a=index">Page d'accueil</a></li>
+        <li><a href="/index.php?c=home&a=europeen">Les dragon européens</a></li>
+        <li><a href="/index.php?c=home&a=chineese">Les dragons asiatiques</a></li>
+        <li><a href="/index.php?c=home&a=other">Les autres dragons</a></li>
+        <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
     </ul>
 </nav>
 
-<h2>Les derniers articles </h2>
-<div><? $article ?></div>
+<main class="container">
+    <?= $html ?>
+</main>
 
-<script src="/asset/js.app.js"></script>
+<script src=" /asset/js/carousel.js"
+<script src="/asset/js/app.js"></script>
 </body>
 </html>

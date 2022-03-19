@@ -1,6 +1,6 @@
 <h2>Inscription</h2>
 
-    <form action="" method="post">
+    <form action="/index.php?c=connexion" method="post">
         <label for="email">email</label>
         <input type="email" name="email" id="email">
 
@@ -13,5 +13,5 @@
         <label for="passwordR">Répétez votre mot de passe</label>
         <input type="password" name="passwordR" id="passwordR">
 
-        <input type="button" name="submit" value="Envoyer">
+        <input type="button" name="submit" value="submit">
     </form>
