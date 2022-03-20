@@ -58,31 +58,20 @@ final class UserManager
      */
     public static function getUserByMail(string $email): ?User
     {
-        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::TABLE . " WHERE email = :mail LIMIT 1");
+        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::TABLE . " WHERE email = :email LIMIT 1");
         $stmt->bindParam(':email', $email);
         return $stmt->execute() ? self::makeUser($stmt->fetch()) : null;
     }
 
 
     /**
-     * Check if a user exists.
+     * Check if a user exists with this id.
      * @param int $id
      * @return bool
      */
     public static function userExists(int $id): bool
     {
         $result = DB::getPDO()->query("SELECT count(*) FROM " . self::TABLE . " WHERE id = $id");
-        return $result ? $result->fetch() : 0;
-    }
-
-    /**
-     * Check if a user exists with its email.
-     * @param string $email
-     * @return bool
-     */
-    public static function userMailExists(string $email): bool
-    {
-        $result = DB::getPDO()->query("SELECT count(*) FROM " . self::TABLE);
         return $result ? $result->fetch() : 0;
     }
 
@@ -96,7 +85,7 @@ final class UserManager
     {
         $users = [];
         $usersQuery = DB::getPDO()->query("
-            SELECT * FROM " . self::TABLE . " WHERE id IN (SELECT user_fk FROM user_role WHERE role_fk = {$role->getId()});
+            SELECT * FROM " . self::TABLE . " WHERE id IN (SELECT user_id FROM user_role WHERE role_id = {$role->getId()});
         ");
 
         if($usersQuery){
@@ -133,9 +122,9 @@ final class UserManager
     {
         $user = (new User())
             ->setId($data['id'])
-            ->setPassword($data['password'])
             ->setEmail($data['email'])
             ->setUsername($data['username'])
+            ->setPassword($data['password'])
         ;
 
         return $user->setRoles(RoleManager::getRolesByUser($user));
@@ -162,7 +151,7 @@ final class UserManager
         if($result) {
             $role = RoleManager::getRoleByName(RoleManager::ROLE_USER);
             $resultRole = DB::getPDO()->exec("
-                INSERT INTO ".self::TABLE_USER_ROLE. " (user_fk, role_fk) VALUES (".$user->getId().", ".$role->getId().")
+                INSERT INTO ".self::TABLE_USER_ROLE. " (user_id, role_id) VALUES (".$user->getId().", ".$role->getId().")
             ");
 
         }

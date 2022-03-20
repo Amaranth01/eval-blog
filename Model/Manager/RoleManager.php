@@ -40,7 +40,7 @@ final class RoleManager
     {
         $roles = [];
         $rolesQuery = DB::getPDO()->query("
-            SELECT * FROM role WHERE id IN (SELECT role_fk FROM user_role WHERE user_fk = {$user->getId()});
+            SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id = {$user->getId()});
         ");
 
         if($rolesQuery){

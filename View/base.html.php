@@ -9,7 +9,25 @@
     <link rel="stylesheet" href="/asset/css/style.css">
 </head>
 <body>
+<?php
+// Handling error messages.
+if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
 
+    foreach($errors as $error) { ?>
+        <div class="alert alert-error"><?= $error ?></div> <?php
+    }
+}
+
+// Handling sucecss messages.
+if(isset($_SESSION['success'])) {
+    $message = $_SESSION['success'];
+    unset($_SESSION['success']);
+    ?>
+    <div class="alert alert-success"><?= $message ?></div> <?php
+}
+?>
 <h1>L'univers des dragons</h1>
 
   <div id="container">

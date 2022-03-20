@@ -69,17 +69,18 @@ class UserController extends AbstractController
                 $user = new User();
             }
         }
+        $this->render('page/register');
     }
 
         /**
          * User login
          * @return void
          */
-        public function login()
+        public function connexion()
         {
 
             if($this->isFormSubmitted()) {
-                $errorMessage = "L'utilisateur / le password est mauvais";
+                $errorMessage = "Votre nom d'utilisateur, ou le mot de passe est incorrect";
                 $mail = $this->clean($this->getFormField('email'));
                 $password = $this->getFormField('password');
 
@@ -98,7 +99,7 @@ class UserController extends AbstractController
                 }
             }
 
-            (new HomeController())->render('base');;
+            $this->render('page/connexion');
         }
 
 
