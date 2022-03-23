@@ -12,124 +12,103 @@ final class UserManager
     public const TABLE_USER_ROLE = 'user_role';
 
     /**
-     * Return all available users.
+     * Returns all users
      * @return array
      */
     public static function getAll(): array
     {
         $users = [];
-        $result = DB::getPDO()->query("SELECT * FROM " . self::TABLE);
+        $result = DB::getPDO()->query("SELECT * FROM user ");
 
         if($result) {
             foreach ($result->fetchAll() as $data) {
-                $users[] = self::makeUser($data);
+                $users[] = self::createUser($data);
             }
         }
         return $users;
     }
 
+    /**
+     * Create a new User
+     * @param array $data
+     * @return User
+     */
+    private static function createUser(array $data): User
+    {
+        //Retrieve the role id to prepare the assignment
+        $role_id = $data['role_id'];
+        $role = RoleManager::getRoleByName($role_id);
+        //Prepare the creation of the new user
+        $user = (new User())
+            ->setId($data['id'])
+            ->setEmail($data['email'])
+            ->setUsername($data['username'])
+            ->setPassword($data['password'])
+            ->setRole($role)
+        ;
+        //Assign a role to a new user
+        return $user->setRole(RoleManager::getRoleByName('user'));
+    }
 
     /**
-     * Return current users count.
-     * @return int
+     * Check if a user exists with this id.
+     * @param string $mail
+     * @return array|null
      */
-    public static function getUsersCount(): int
+    public static function userExists(string $mail): ?array
     {
-        $result = DB::getPDO()->query("SELECT count(*) FROM " . self::TABLE);
-        return $result ? $result->fetch() : 0;
+        $result = DB::getPDO()->query("SELECT count(*) FROM user WHERE email = '$mail'");
+        return $result ? $result->fetch() : null;
     }
 
 
     /**
-     * Return a user based on its id.
+     * Find a user with their id.
      * @param int $id
      * @return User
      */
     public static function getUser(int $id): ?User
     {
-        $result = DB::getPDO()->query("SELECT * FROM " . self::TABLE . " WHERE id = $id");
-        return $result ? self::makeUser($result->fetch()) : null;
+        $result = DB::getPDO()->query("SELECT * FROM user WHERE id = '$id'");
+        return $result ? self::createUser($result->fetch()) : null;
     }
 
     /**
-     * Fetch a user by mail
+     * Find a user by email
      * @param string $email
      * @return User|null
      */
     public static function getUserByMail(string $email): ?User
     {
-        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::TABLE . " WHERE email = :email LIMIT 1");
+        $stmt = DB::getPDO()->prepare("SELECT * FROM user WHERE email = :email LIMIT 1");
         $stmt->bindParam(':email', $email);
-        return $stmt->execute() ? self::makeUser($stmt->fetch()) : null;
+        return $stmt->execute() ? self::createUser($stmt->fetch()) : null;
     }
 
-
     /**
-     * Check if a user exists with this id.
-     * @param int $id
-     * @return bool
-     */
-    public static function userExists(int $id): bool
-    {
-        $result = DB::getPDO()->query("SELECT count(*) FROM " . self::TABLE . " WHERE id = $id");
-        return $result ? $result->fetch() : 0;
-    }
-
-
-    /**
-     * Return all available user by given role
-     * @param Role $role
-     * @return array
-     */
-    public static function getUsersByRole(Role $role): array
-    {
-        $users = [];
-        $usersQuery = DB::getPDO()->query("
-            SELECT * FROM " . self::TABLE . " WHERE id IN (SELECT user_id FROM user_role WHERE role_id = {$role->getId()});
-        ");
-
-        if($usersQuery){
-            foreach($usersQuery->fetchAll() as $userData) {
-                $users[] = self::makeUser($userData);
-            }
-        }
-
-        return $users;
-    }
-
-
-    /**
-     * Delete a user from user db.
+     * Delete a user
      * @param User $user
      * @return bool
      */
     public static function deleteUser(User $user): bool {
         if(self::userExists($user->getId())) {
             return DB::getPDO()->exec("
-            DELETE FROM " . self::TABLE . " WHERE id = {$user->getId()}
+            DELETE FROM user WHERE id = {$user->getId()}
         ");
         }
         return false;
     }
 
-
     /**
-     * Create a new User Entity
-     * @param array $data
-     * @return User
+     * Checks if an email address is already present in the DB.
+     * @param string $mail
+     * @return array
      */
-    private static function makeUser(array $data): User
+    public static function mailExists(string $mail): ?array
     {
-        $user = (new User())
-            ->setId($data['id'])
-            ->setEmail($data['email'])
-            ->setUsername($data['username'])
-            ->setPassword($data['password'])
-        ;
-
-        return $user->setRoles(RoleManager::getRolesByUser($user));
+        $result = DB::getPDO()->query("SELECT count(*) FROM user WHERE email = '$mail'");
+        return $result->fetch();
     }
-
 
     /**
      * @param User $user
@@ -138,25 +117,18 @@ final class UserManager
     public static function addUser(User $user): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO ".self::TABLE." (email, username, password) 
-            VALUES (:email, :username, :password)
+            INSERT INTO user (email, username, password, role_id) 
+            VALUES (:email, :username, :password, :role_id)
         ");
 
-        $stmt->bindValue(':email', $user->getEmail());
-        $stmt->bindValue(':username', $user->getUsername());
-        $stmt->bindValue(':password', $user->getPassword());
+        $stmt->bindValue('email', $user->getEmail());
+        $stmt->bindValue('username', $user->getUsername());
+        $stmt->bindValue('password', $user->getPassword());
+        $stmt->bindValue('role_id', $user->getRole()->getId());
 
         $result = $stmt->execute();
         $user->setId(DB::getPDO()->lastInsertId());
-        if($result) {
-            $role = RoleManager::getRoleByName(RoleManager::ROLE_USER);
-            $resultRole = DB::getPDO()->exec("
-                INSERT INTO ".self::TABLE_USER_ROLE. " (user_id, role_id) VALUES (".$user->getId().", ".$role->getId().")
-            ");
 
-        }
-        return $result && $resultRole;
+        return $result;
     }
-
-
 }

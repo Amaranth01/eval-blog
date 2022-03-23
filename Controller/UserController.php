@@ -2,6 +2,7 @@
 
 use App\Controller\AbstractController;
 use App\Model\Entity\User;
+use App\Model\Manager\RoleManager;
 use App\Model\Manager\UserManager;
 
 class UserController extends AbstractController
@@ -14,12 +15,17 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Checks that the form fields are present
+     * @param string $field
+     * @param null $default
+     * @return mixed|string
+     */
     public function formField(string $field, $default = null)
     {
         if (!isset($_POST[$field])) {
             return (null === $default) ? '' : $default;
         }
-
         return $_POST[$field];
     }
 
@@ -31,7 +37,7 @@ class UserController extends AbstractController
     public function register ()
     {
 
-        if ($this->isFormSubmitted()) {
+        if ($this->formSubmitted()) {
             $mail = $this->clean($this->formField('email'));
             $username = $this->clean($this->formField('username'));
             $password = $this->formField('password');
@@ -47,7 +53,7 @@ class UserController extends AbstractController
 
             // Returns an error if the username is not 2 characters
             if (!strlen($username) >= 2) {
-                $error[] = "Le firstname ne fait pas au moins 2 chars";
+                $error[] = "Le nom, ou pseudo, doit faire au moins 2 caractères";
             }
 
             // Returns an error if the password does not contain all the requested characters.
@@ -57,16 +63,38 @@ class UserController extends AbstractController
 
             // Passwords do not match
             if ($password !== $passwordR) {
-                $error[] = "Les password ne correspondent pas";
+                $error[] = "Les mots de passe ne correspondent pas";
             }
 
-            //Handles in-session message save errors
+            //Count the mistakes
             if (count($error) > 0) {
                 $_SESSION['errors'] = $error;
             } else {
                 //If no error is detected the program goes to else and authorizes the recording
-
                 $user = new User();
+                $role = RoleManager::getRoleByName('user');
+                $user
+                    ->setUsername($username)
+                    ->setEmail($mail)
+                    ->setPassword(password_hash($password, PASSWORD_DEFAULT))
+                    ->setRole($role)
+                    ;
+                //If no email is found, we launch the addUser function
+                if(0 == UserManager::mailExists($user->getEmail())['count(*)']) {
+                    UserManager::addUser($user);
+                    //If the ID is not null, we pass the user in the session
+                    if (null!== $user->getId()) {
+                        $_SESSION['success'] = "Félicitations votre compte est actif";
+                        $user->setPassword('');
+                        $_SESSION['user'] = $user;
+                    }
+                    else {
+                        $_SESSION['errors'] = ["Impossible de vous enregistrer"];
+                    }
+                }
+                else {
+                    $_SESSION['errors'] = ["Cette adresse mail existe déjà !"];
+                }
             }
         }
         $this->render('page/register');
@@ -79,16 +107,25 @@ class UserController extends AbstractController
         public function connexion()
         {
 
-            if($this->isFormSubmitted()) {
+            if($this->formSubmitted()) {
                 $errorMessage = "Votre nom d'utilisateur, ou le mot de passe est incorrect";
                 $mail = $this->clean($this->getFormField('email'));
                 $password = $this->getFormField('password');
+                $username = $this->clean($this->getFormField('username'));
 
+                //Check that the fields are not empty
+                if (empty($mail) || empty($password) || empty($username)) {
+                    $_SESSION['errors'][] = $errorMessage;
+                    $this->render('home/index');
+                    exit();
+                }
+                //Traces the user by his email to verify that he exists
                 $user = UserManager::getUserByMail($mail);
                 if (null === $user) {
                     $_SESSION['errors'][] = $errorMessage;
                 }
                 else {
+                    //Compare the password entered and written in the DB
                     if (password_verify($password, $user->getPassword())) {
                         $user->setPassword('');
                         $_SESSION['user'] = $user;
@@ -98,9 +135,6 @@ class UserController extends AbstractController
                     }
                 }
             }
-
-            $this->render('page/connexion');
+            $this->render('home/index');
         }
-
-
 }

@@ -1,4 +1,4 @@
-<h2>Connectez-vous</h2>
+<h1>Connectez-vous</h1>
 
         <form action="/index.php?c=user&a=connexion" method="post">
             <label for="username">username</label>

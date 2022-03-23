@@ -43,7 +43,7 @@ class Routing
     }
 
     /**
-     * Check that the controllers are correct, if not, redirect to a error page.
+     * Check that the controllers are correct, if not, redirect to an error page.
      * @param string $controller
      * @return ErrorController|mixed
      */
@@ -67,6 +67,7 @@ class Routing
         $paramController = self::param('c', 'home');
         $action = self::param('a');
         $controller = self::guessController($paramController);
+        $id = self::param('id');
 
         //Returns the error page if the controller is not found, and we quit the script
         if($controller instanceof ErrorController) {
@@ -76,6 +77,17 @@ class Routing
 
         //Verification of the presence of controller
         $action = self::guessMethod($controller, $action);
-        null === $action ? $controller->index() : $controller->$action();
+        //Checks if a controller id is needed
+        if($action !== null) {
+            if ($id !== null) {
+                $controller->$action($id);
+            }
+            else {
+                $controller->$action();
+            }
+        }
+        else {
+            $controller->index();
+        }
     }
 }

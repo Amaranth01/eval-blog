@@ -30,20 +30,21 @@ if(isset($_SESSION['success'])) {
 ?>
 <h1>L'univers des dragons</h1>
 
+    <nav>
+        <ul>
+            <li><a href="/index.php?c=home&a=index">Page d'accueil</a></li>
+            <li><a href="/index.php?c=article&a=index">Ajouter un article</a></li>
+            <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
+            <li><a href="/index.php?c=admin&a=index">Espace administration</a></li>
+        </ul>
+    </nav>
+
   <div id="container">
         <img id="carousel" src="" alt="">
   </div>
 
 
-<nav>
-    <ul>
-        <li><a href="/index.php?c=home&a=index">Page d'accueil</a></li>
-        <li><a href="/index.php?c=home&a=europeen">Les dragon européens</a></li>
-        <li><a href="/index.php?c=home&a=chineese">Les dragons asiatiques</a></li>
-        <li><a href="/index.php?c=home&a=other">Les autres dragons</a></li>
-        <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
-    </ul>
-</nav>
+
 
 <main class="container">
     <?= $html ?>

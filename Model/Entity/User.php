@@ -7,13 +7,7 @@ class User extends AbstractEntity
     private string $email;
     private string $username;
     private string $password;
-    private array $roles;
-
-
-    public function __construct()
-    {
-        $this->roles = [];
-    }
+    private Role $role;
 
     /**
      * @return string
@@ -70,29 +64,20 @@ class User extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return Role
      */
-    public function getRoles(): array
+    public function getRole(): Role
     {
-        return $this->roles;
+        return $this->role;
     }
 
     /**
-     * @param array $roles
+     * @param Role $role
      * @return User
      */
-    public function setRoles(array $roles): self
+    public function setRole(Role $role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
         return $this;
     }
-
-
-    public function addRole(Role $role): self
-    {
-        //Checks if a user does not already have a role
-        $this->roles[] = $role;
-        return $this;
-    }
-
 }

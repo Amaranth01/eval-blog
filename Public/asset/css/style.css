@@ -4,14 +4,27 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #c4bcbc;
+}
+
 html {
     font-size: 65.5%;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     font-size: 4rem;
     margin-top: 0.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+/*Main Menu*/
+nav {
+    background-color: darkred;
 }
 
 nav > ul {
@@ -23,12 +36,14 @@ nav > ul {
 
 li {
     list-style: none;
+    padding: 0.5rem;
 }
 
 a {
     text-decoration: none;
-    color: black;
     font-size: 2rem;
+    color: white;
+    font-weight: bold;
 }
 
 /*Manages the size of the carousel images*/
@@ -39,8 +54,45 @@ a {
     align-items: center;
     width: 50%;
     margin-left: 25vw;
+    margin-top: 2rem;
 }
 
 #carousel {
     width: 80vh;
+}
+
+/*layout of forms*/
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+label, input {
+    margin-top: 0.5rem;
+}
+
+.button {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+/*layout user*/
+table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+tr, td {
+    margin-top: 2rem;
+    border: black double 4px;
+    font-size: 1.5rem;
+    padding: 0.5rem;
 }

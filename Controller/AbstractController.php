@@ -37,7 +37,7 @@ abstract class AbstractController
     /**
      * @return bool
      */
-    public function isFormSubmitted(): bool
+    public function formSubmitted(): bool
     {
         return isset($_POST['submit']);
     }

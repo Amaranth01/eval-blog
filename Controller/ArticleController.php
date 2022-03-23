@@ -9,7 +9,7 @@ class ArticleController extends AbstractController {
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $this->render('article/add-article');
     }
 
     public function addArticle() {
