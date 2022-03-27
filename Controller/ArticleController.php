@@ -13,6 +13,11 @@ class ArticleController extends AbstractController
         $this->render('article/add-article');
     }
 
+    public function articleManage()
+    {
+        $this->render('article/del-article');
+    }
+
     /**
      * Encodes article content.
      */
@@ -30,6 +35,26 @@ class ArticleController extends AbstractController
             ->setContent($content)
             ->setAuthor($author)
         ;
+
+        //Check that the fields are free, otherwise we exit
+        $errorMessage = "Un des deux champs est vide. Merci de le remplir";
+        if(empty($title) && empty($content)) {
+            $_SESSION['errors'][] = $errorMessage;
+            $this->render('home/index');
+            exit();
+        }
         ArticleManager::addNewArticle($article);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteArticle(int $id)
+    {
+        if(ArticleManager::articleExist($id)) {
+            ArticleManager::deleteArticle($id);
+            var_dump(ArticleManager::deleteArticle($id));
+            exit();
+        }
     }
 }

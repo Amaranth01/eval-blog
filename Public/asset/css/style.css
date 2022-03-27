@@ -107,3 +107,23 @@ tr, td {
     margin-top: 4rem;
     font-size: 1.5rem;
 }
+
+/*index article style*/
+
+#content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.article {
+    text-align: center;
+    border: darkred solid 2px;
+    width: 50vw;
+    height: 40vh;
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    box-shadow: #868686 -4px -2px 5px 5px;
+}
