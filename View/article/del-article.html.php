@@ -13,7 +13,7 @@
 
         <tr>
             <td>Titre</td>
-            <td><?= $article->getTitle() ?></td>
+            <td class="artTitle"><?= $article->getTitle() ?></td>
         </tr>
         <tr>
             <td>Contenu</td>
@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td>Editer</td>
-            <td><a href="">Editer</a></td>
+            <td><a href="/index.php?c=article&a=edit-article">Editer</a></td>
         </tr>
         <?php
     }

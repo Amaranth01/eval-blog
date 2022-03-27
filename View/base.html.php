@@ -36,6 +36,7 @@ if(isset($_SESSION['success'])) {
             <li><a href="/index.php?c=article&a=index">Ajouter un article</a></li>
             <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
             <li><a href="/index.php?c=admin&a=index">Espace administration</a></li>
+            <li><a href="">Déconnexion</a></li>
         </ul>
     </nav>
 

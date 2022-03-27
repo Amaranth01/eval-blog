@@ -10,12 +10,13 @@ foreach (ArticleManager::findAll() as $article) {
 
     <div id="content">
         <div class="article">
-            <p><?= $article->getTitle() ?></p>
+            <p class="artTitle"><?= $article->getTitle()?></p>
             <br>
 
             <p><?=$article->getContent() ?></p>
-        </div>
 
+            <p><a href="/index.php?c=comment&a=index">Ajouter un commentaire</a></p>
+        </div>
         <br> <br>
     </div>
 

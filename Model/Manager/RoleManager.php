@@ -8,10 +8,6 @@ use App\Model\Entity\User;
 
 final class RoleManager
 {
-    public const ROLE_ADMIN = 'admin';
-    public const ROLE_USER = 'user';
-    public const ROLE_MODERATOR = 'moderator';
-
     /**
      * Fetch all roles.
      * @return array

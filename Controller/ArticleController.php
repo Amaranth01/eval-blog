@@ -18,6 +18,11 @@ class ArticleController extends AbstractController
         $this->render('article/del-article');
     }
 
+    public function editArticle()
+    {
+        $this->render('article/update-article');
+    }
+
     /**
      * Encodes article content.
      */
@@ -44,6 +49,7 @@ class ArticleController extends AbstractController
             exit();
         }
         ArticleManager::addNewArticle($article);
+        $this->render('home/index');
     }
 
     /**
@@ -52,9 +58,27 @@ class ArticleController extends AbstractController
     public function deleteArticle(int $id)
     {
         if(ArticleManager::articleExist($id)) {
-            ArticleManager::deleteArticle($id);
-            var_dump(ArticleManager::deleteArticle($id));
+            $deleted = ArticleManager::deleteArticle($id);
+            $this->render('home/index');
+        }
+    }
+
+    public function updateArticle($id)
+    {
+        //We check that the input fields are complete
+        if (!isset($_POST['title']) || !isset($_POST['content'])) {
+            $this->render('home/index');
             exit();
         }
+
+        $newTitle = $this->clean($_POST['title']);
+        $newContent = $this->clean($_POST['content']);
+
+        $article= new ArticleManager();
+        if ($_SESSION['user']->getId() !== $article->articleExist($id)->getUser()->getId()) {
+            $this->render('home/index');
+            exit();
+        }
+        $article->updateArticle($newTitle, $newContent, $id);
     }
 }

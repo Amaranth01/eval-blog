@@ -34,6 +34,17 @@ class ArticleManager
     }
 
     /**
+     * Select an article by its id
+     * @param int $id
+     * @return bool|void|null
+     */
+    public static function getArticle(int $id)
+    {
+        $result = DB::getPDO()->query("SELECT * FROM article WHERE id = '$id'");
+        return $result ? self::addNewArticle($result->fetch()) : null;
+    }
+
+    /**
      * Add a new article into the db.
      * @param Article $article
      * @return void
@@ -66,17 +77,31 @@ class ArticleManager
 
     /**
      * Deletes an item from the database by id
-     * @param Article $article
+     * @param $id
      * @return false|int
      */
-    public static function deleteArticle(Article $article)
+    public static function deleteArticle($id)
     {
-        if (self::articleExist($article->getId())) {
+        if (self::articleExist($id)) {
             return DB::getPDO()->exec(
-                "DELETE FROM article WHERE id = {$article->getId()}
+                "DELETE FROM article WHERE id = '$id'
             ");
         }
         return false;
+    }
+
+    /**
+     * Edit article by id
+     */
+    public static function updateArticle($newTitle, $newContent, $id) {
+        $stmt = DB::getPDO()->prepare("UPDATE article 
+        SET content = :newContent, title = :newTitle WHERE id = :id");
+
+        $stmt->bindParam('newTitle', $newTitle);
+        $stmt->bindParam('newContent', $newContent);
+        $stmt->bindParam('id', $id);
+
+        $stmt->execute();
     }
 }
 
