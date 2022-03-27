@@ -20,4 +20,8 @@ class HomeController extends AbstractController {
         $this->render('page/register');
     }
 
+    public function admin(){
+        $this->render('page/admin');
+    }
+
 }

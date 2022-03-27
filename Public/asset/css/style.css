@@ -96,3 +96,14 @@ tr, td {
     font-size: 1.5rem;
     padding: 0.5rem;
 }
+
+/*forms style*/
+
+#form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 4rem;
+    font-size: 1.5rem;
+}

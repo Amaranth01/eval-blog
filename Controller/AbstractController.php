@@ -66,6 +66,15 @@ abstract class AbstractController
         return isset($_SESSION['user']) && null !== ($_SESSION['user'])->getId();
     }
 
-
-
+    /**
+     * Returns a logged-in user, or null if not logged in.
+     * @return User|null
+     */
+    public function getConnectedUser(): ?User
+    {
+        if(!self::userConnected()) {
+            return null;
+        }
+        return ($_SESSION['user']);
+    }
 }

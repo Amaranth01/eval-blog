@@ -32,30 +32,6 @@ final class RoleManager
     }
 
     /**
-     * Return all given user roles.
-     * @param User $user
-     * @return array
-     */
-    public static function getRolesByUser(User $user): array
-    {
-        $roles = [];
-        $rolesQuery = DB::getPDO()->query("
-            SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id = {$user->getId()});
-        ");
-
-        if($rolesQuery){
-            foreach($rolesQuery->fetchAll() as $roleData) {
-                $roles[] = (new Role())
-                    ->setId($roleData['id'])
-                    ->setRoleName($roleData['role_name'])
-                ;
-            }
-        }
-
-        return $roles;
-    }
-
-    /**
      * Return a role by name.
      * @param string $roleName
      * @return Role
@@ -71,6 +47,23 @@ final class RoleManager
             $role->setRoleName($roleData['role_name']);
         }
         return $role;
+    }
+
+    /**
+     * Return a role by id
+     * @param int $id
+     * @return Role
+     */
+    public static function getRoleById(int $id): Role
+    {
+        $roleId = new Role();
+        $request = DB::getPDO()->query("
+            SELECT * FROM user WHERE role_id = '".$id."'
+        ");
+        if($request && $roleData = $request->fetch()) {
+            $roleId->setId($roleData['id']);
+        }
+        return $roleId;
     }
 
 }

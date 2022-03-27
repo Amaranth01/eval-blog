@@ -43,9 +43,6 @@ if(isset($_SESSION['success'])) {
         <img id="carousel" src="" alt="">
   </div>
 
-
-
-
 <main class="container">
     <?= $html ?>
 </main>

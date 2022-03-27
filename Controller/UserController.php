@@ -10,7 +10,7 @@ class UserController extends AbstractController
 
     public function index()
     {
-        $this->render('user/users-list', [
+        $this->render('page/admin', [
             'users_list' => UserManager::getAll()
         ]);
     }
@@ -109,9 +109,9 @@ class UserController extends AbstractController
 
             if($this->formSubmitted()) {
                 $errorMessage = "Votre nom d'utilisateur, ou le mot de passe est incorrect";
-                $mail = $this->clean($this->getFormField('email'));
-                $password = $this->getFormField('password');
-                $username = $this->clean($this->getFormField('username'));
+                $mail = $this->clean($this->formField('email'));
+                $password = $this->formField('password');
+                $username = $this->clean($this->formField('username'));
 
                 //Check that the fields are not empty
                 if (empty($mail) || empty($password) || empty($username)) {
@@ -137,4 +137,18 @@ class UserController extends AbstractController
             }
             $this->render('home/index');
         }
+
+    /**
+     * Deleting a user
+     * @param int $id
+     * @return void
+     */
+    public function deleteUser(int $id)
+    {
+        if(UserManager::userExists($id)) {
+            $user = UserManager::getUser($id);
+            $deleted = UserManager::deleteUser($user);
+        }
+        $this->index();
+    }
 }

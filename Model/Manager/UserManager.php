@@ -8,9 +8,6 @@ use App\Model\Entity\User;
 
 final class UserManager
 {
-    public const TABLE = 'user';
-    public const TABLE_USER_ROLE = 'user_role';
-
     /**
      * Returns all users
      * @return array

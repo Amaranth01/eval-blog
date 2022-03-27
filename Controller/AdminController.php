@@ -2,8 +2,7 @@
 
 use App\Controller\AbstractController;
 
-class AdminController extends AbstractController
-{
+class AdminController extends AbstractController {
 
     public function index()
     {
@@ -11,6 +10,11 @@ class AdminController extends AbstractController
     }
 
     public function delUser() {
-        $this->render('user/delUser');
+        $this->render('user/del-user');
     }
+
+    public function listUser(){
+        $this->render('user/list-user');
+    }
+
 }

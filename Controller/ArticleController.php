@@ -5,38 +5,31 @@ use App\Model\Entity\Article;
 use App\Model\Manager\ArticleManager;
 use App\Model\Manager\UserManager;
 
-class ArticleController extends AbstractController {
+class ArticleController extends AbstractController
+{
 
     public function index()
     {
         $this->render('article/add-article');
     }
 
-    public function addArticle() {
-        if($this->isFormSubmitted()) {
+    /**
+     * Encodes article content.
+     */
+    public function addArticle()
+    {
+        //Clean data
+        $title = $this->clean($this->getFormField('title'));
+        $content = $this->clean($this->getFormField('content'));
 
-            $user = UserManager::getUser((int)$_SESSION);
+        //Checks if the user is logged in
+        $author = self::getConnectedUser();
 
-            // Getting Article data from form.
-            $title = $this->clean($this->getFormField('title'));
-            $content = $this->clean($this->getFormField('content'));
-
-
-            $article = new Article();
-            $article
-                ->setTitle($title)
-                ->setContent($content)
-                ->setAuthor($user);
-
-            // Saving new article.
-            if (ArticleManager::addNewArticle($article)) {
-                (new HomeController())->render('base', [
-                    'article' => $article,
-                ]);
-            }
-        }
-        (new HomeController())->render('base');;
+        $article = (new Article())
+            ->setTitle($title)
+            ->setContent($content)
+            ->setAuthor($author)
+        ;
+        ArticleManager::addNewArticle($article);
     }
-
-
 }

@@ -43,12 +43,12 @@ class ArticleManager
     public static function addNewArticle(Article $article): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO ". self::TABLE ." (title, content, user_fk) VALUES (:title, :content, :author)
+            INSERT INTO ". self::TABLE ." (title, content, user_id) VALUES (:title, :content, :user_id)
         ");
 
         $stmt->bindValue(':title', $article->getTitle());
         $stmt->bindValue(':content', $article->getContent());
-        $stmt->bindValue(':author', $article->getAuthor()->getId());
+        $stmt->bindValue(':user_id', $article->getAuthor()->getId());
 
         $result = $stmt->execute();
         $article->setId(DB::getPDO()->lastInsertId());
