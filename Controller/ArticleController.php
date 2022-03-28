@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\AbstractController;
+use App\Model\DB;
 use App\Model\Entity\Article;
 use App\Model\Manager\ArticleManager;
 use App\Model\Manager\UserManager;

@@ -5,8 +5,9 @@
     <?php
 
     use App\Model\Entity\Article;
-    use App\Model\Manager\ArticleManager;
+
     use App\Model\Entity\AbstractEntity;
+    use App\Model\Manager\ArticleManager;
 
     foreach (ArticleManager::findAll() as $article) {
         ?>

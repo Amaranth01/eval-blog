@@ -20,9 +20,10 @@ class Comment extends AbstractEntity
     /**
      * @param string $content
      */
-    public function setContent(string $content): void
+    public function setContent(string $content): self
     {
         $this->content = $content;
+        return $this;
     }
 
     /**
@@ -36,9 +37,10 @@ class Comment extends AbstractEntity
     /**
      * @param User $author
      */
-    public function setAuthor(User $author): void
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
+        return $this;
     }
 
     /**
@@ -52,9 +54,10 @@ class Comment extends AbstractEntity
     /**
      * @param Article $article
      */
-    public function setArticle(Article $article): void
+    public function setArticle(Article $article): self
     {
         $this->article = $article;
+        return $this;
     }
 
 

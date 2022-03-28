@@ -48,7 +48,7 @@ final class UserManager
     }
 
     /**
-     * Check if a user exists with this id.
+     * Check if a user exists with this mail.
      * @param string $mail
      * @return array|null
      */

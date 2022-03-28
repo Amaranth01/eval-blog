@@ -1,13 +1,13 @@
+
+<h1>Modifier un article</h1>
+
 <?php
 
 use App\Model\Manager\ArticleManager;
 
 ?>
-<h1>Modifier un article</h1>
 
-
-
-<form action="/index.php?c=article&a=edit-article&id=<?= ArticleManager::articleExist($id) ?>" method="post" id="form">
+<!--<form action="/index.php?c=article&a=edit-article&id=--><?//= ArticleManager::articleExist($id) ?><!--" method="post" id="form">-->
 
     <label for="title">Mise à jour du titre</label>
     <input type="text" name="title" value="" id="title">

@@ -9,6 +9,7 @@ require __DIR__ . '/Controller/UserController.php';
 require __DIR__ . '/Controller/HomeController.php';
 require __DIR__ . '/Controller/ErrorController.php';
 require __DIR__ . '/Controller/AdminController.php';
+require __DIR__ . '/Controller/CommentController.php';
 
 require __DIR__ . '/Model/Entity/AbstractEntity.php';
 require __DIR__ . '/Model/Entity/Article.php';

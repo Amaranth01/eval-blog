@@ -21,7 +21,7 @@ abstract class AbstractController
         require __DIR__ . '/../View/base.html.php';
     }
 
-    protected function clean(string $data): string
+    protected static function clean(string $data): string
     {
         $data = trim($data);
         $data = strip_tags($data);
