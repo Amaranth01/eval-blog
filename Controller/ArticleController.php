@@ -19,9 +19,9 @@ class ArticleController extends AbstractController
         $this->render('article/del-article');
     }
 
-    public function editArticle()
+    public function editArticle($id)
     {
-        $this->render('article/update-article');
+        $this->render('article/update-article', $data=[$id]);
     }
 
     /**
@@ -75,11 +75,9 @@ class ArticleController extends AbstractController
         $newTitle = $this->clean($_POST['title']);
         $newContent = $this->clean($_POST['content']);
 
-        $article= new ArticleManager();
-        if ($_SESSION['user']->getId() !== $article->articleExist($id)->getUser()->getId()) {
-            $this->render('home/index');
-            exit();
-        }
+        $article= new ArticleManager($newTitle, $newContent, $id);
         $article->updateArticle($newTitle, $newContent, $id);
+
+        $this->render('home/index');
     }
 }

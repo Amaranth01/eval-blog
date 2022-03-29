@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <td>Editer</td>
-            <td><a href="/index.php?c=article&a=edit-article">Editer</a></td>
+            <td><a href="/index.php?c=article&a=edit-article&id=<?= $article->getId() ?>">Editer</a></td>
         </tr>
         <?php
     }

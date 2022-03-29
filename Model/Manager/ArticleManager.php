@@ -36,12 +36,18 @@ class ArticleManager
     /**
      * Select an article by its id
      * @param int $id
-     * @return bool|void|null
+     * @return Article
      */
-    public static function getArticle(int $id)
+    public static function getArticle(int $id): Article
     {
         $result = DB::getPDO()->query("SELECT * FROM article WHERE id = '$id'");
-        return $result ? self::addNewArticle($result->fetch()) : null;
+        $result = $result->fetch();
+        return (new Article())
+            ->setId($id)
+            ->setContent($result ['content'])
+            ->setTitle($result['title'])
+            ->setAuthor(UserManager::getUser($result['user_id']))
+            ;
     }
 
     /**
@@ -69,7 +75,7 @@ class ArticleManager
      * @param int $id
      * @return int|mixed
      */
-    public static function articleExist(int $id)
+    public static function articleExist(int $id): ?int
     {
         $result = DB::getPDO()->query("SELECT count(*) FROM article WHERE id = '$id'");
         return $result ? $result->fetch(): 0;
