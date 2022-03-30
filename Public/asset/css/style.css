@@ -119,16 +119,35 @@ tr, td {
 
 /*index article style*/
 
-#content {
+#contentArticle {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    flex-direction: row-reverse;
+    width: 45vw;
+    margin-left: 1.5rem;
+}
+
+#contentComment {
+    display: flex;
+    justify-content: right;
     flex-direction: row-reverse;
 }
 
-.article {
+#titleArt {
+    text-align: left;
+    margin-left: 10vw;
+}
+
+#titleComment {
+    width: 30vw;
+    text-align: right;
+    margin-right: 10vw;
+}
+
+.article, .comment {
     text-align: center;
     border: darkred solid 2px;
-    width: 50vw;
+    width: 45vw;
     font-size: 2rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
