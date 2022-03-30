@@ -67,6 +67,15 @@ abstract class AbstractController
     }
 
     /**
+     * Checks if an admin is already logged in
+     * @return bool
+     */
+    public static function adminConnected(): bool
+    {
+        return isset($_SESSION['admin']) && null !== ($_SESSION['admin'])->getId();
+    }
+
+    /**
      * Returns a logged-in user, or null if not logged in.
      * @return User|null
      */

@@ -16,7 +16,7 @@ if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
     unset($_SESSION['errors']);
 
     foreach($errors as $error) { ?>
-        <div class="alert alert-error"><?= $error ?></div> <?php
+        <div class="error"><?= $error ?></div> <?php
     }
 }
 
@@ -25,7 +25,7 @@ if(isset($_SESSION['success'])) {
     $message = $_SESSION['success'];
     unset($_SESSION['success']);
     ?>
-    <div class="alert alert-success"><?= $message ?></div> <?php
+    <div class="success"><?= $message ?></div> <?php
 }
 ?>
 <h1>L'univers des dragons</h1>
@@ -36,7 +36,7 @@ if(isset($_SESSION['success'])) {
             <li><a href="/index.php?c=article&a=index">Ajouter un article</a></li>
             <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
             <li><a href="/index.php?c=admin&a=index">Espace administration</a></li>
-            <li><a href="">Déconnexion</a></li>
+            <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
         </ul>
     </nav>
 

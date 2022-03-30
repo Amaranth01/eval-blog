@@ -23,7 +23,9 @@ class CommentController extends AbstractController
 
         //Checks if the user is logged in
         $author = self::getConnectedUser();
-
+        echo "<pre>";
+        var_dump($author);
+        echo "</pre>";
         $comment = (new Comment())
             ->setContent($content)
             ->setAuthor($author)

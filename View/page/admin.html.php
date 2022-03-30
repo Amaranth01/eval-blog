@@ -4,4 +4,4 @@
 
 <h2><a href="/index.php?c=article&a=article-manage">Modération d'article</a></h2>
 
-<h><a href="">Gestion des commentaires</a></h>
+<h2><a href="/index.php?c=comment">Gestion des commentaires</a></h2>

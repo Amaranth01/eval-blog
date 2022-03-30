@@ -29,13 +29,22 @@ class ArticleController extends AbstractController
      */
     public function addArticle()
     {
+
+        if(!self::userConnected()) {
+            $errorMessage = "Il faut être connecter pour pouvoir ajouter un article";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
+
         //Clean data
         $title = $this->clean($this->getFormField('title'));
         $content = $this->clean($this->getFormField('content'));
 
         //Checks if the user is logged in
         $author = self::getConnectedUser();
-
+        echo "<pre>";
+        var_dump($author);
+        echo "</pre>";
         $article = (new Article())
             ->setTitle($title)
             ->setContent($content)
@@ -50,6 +59,7 @@ class ArticleController extends AbstractController
             exit();
         }
         ArticleManager::addNewArticle($article);
+
         $this->render('home/index');
     }
 
@@ -58,6 +68,13 @@ class ArticleController extends AbstractController
      */
     public function deleteArticle(int $id)
     {
+        //Verify that the user has admin status
+        if(!self::adminConnected()) {
+            $errorMessage = "Seul un administrateur peut supprimer un article";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
+        //Check that the article exists
         if(ArticleManager::articleExist($id)) {
             $deleted = ArticleManager::deleteArticle($id);
             $this->render('home/index');
@@ -66,6 +83,13 @@ class ArticleController extends AbstractController
 
     public function updateArticle($id)
     {
+        //Verify that the user has admin status
+        if(!self::adminConnected()) {
+            $errorMessage = "Seul un administrateur peut modifier un article";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
+
         //We check that the input fields are complete
         if (!isset($_POST['title']) || !isset($_POST['content'])) {
             $this->render('home/index');

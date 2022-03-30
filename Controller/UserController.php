@@ -145,6 +145,12 @@ class UserController extends AbstractController
      */
     public function deleteUser(int $id)
     {
+        if(!self::adminConnected()) {
+            $errorMessage = "Seul un administrateur peut supprimer un utilisateur";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
+
         if(UserManager::userExists($id)) {
             $user = UserManager::getUser($id);
             $deleted = UserManager::deleteUser($user);

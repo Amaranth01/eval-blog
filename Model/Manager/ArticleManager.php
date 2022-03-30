@@ -18,7 +18,6 @@ class ArticleManager
         $query = DB::getPDO()->query("SELECT * FROM  article");
         if($query) {
             $userManager = new UserManager();
-            $format = 'Y-m-d H:i:s';
 
             foreach($query->fetchAll() as $articleData) {
                 $articles[] = (new Article())
@@ -110,11 +109,3 @@ class ArticleManager
         $stmt->execute();
     }
 }
-
-
-
-
-
-
-
-
