@@ -42,9 +42,6 @@ class ArticleController extends AbstractController
 
         //Checks if the user is logged in
         $author = self::getConnectedUser();
-        echo "<pre>";
-        var_dump($author);
-        echo "</pre>";
         $article = (new Article())
             ->setTitle($title)
             ->setContent($content)
@@ -59,7 +56,8 @@ class ArticleController extends AbstractController
             exit();
         }
         ArticleManager::addNewArticle($article);
-
+        $successMessage = "Votre article a été publié";
+        $_SESSION['success'][] = $successMessage;
         $this->render('home/index');
     }
 

@@ -115,6 +115,7 @@ class UserController extends AbstractController
 
                 //Check that the fields are not empty
                 if (empty($mail) || empty($password) || empty($username)) {
+                    $errorMessage = "L'un des champ est manquant";
                     $_SESSION['errors'][] = $errorMessage;
                     $this->render('home/index');
                     exit();
@@ -122,6 +123,7 @@ class UserController extends AbstractController
                 //Traces the user by his email to verify that he exists
                 $user = UserManager::getUserByMail($mail);
                 if (null === $user) {
+                    $errorMessage = "Adresse mail inconnue";
                     $_SESSION['errors'][] = $errorMessage;
                 }
                 else {
@@ -135,6 +137,8 @@ class UserController extends AbstractController
                     }
                 }
             }
+            $successMessage = "Vous êtes connecté";
+            $_SESSION['success'] = $successMessage;
             $this->render('home/index');
         }
 

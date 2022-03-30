@@ -16,16 +16,22 @@ if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
     unset($_SESSION['errors']);
 
     foreach($errors as $error) { ?>
-        <div class="error"><?= $error ?></div> <?php
+        <div class="message error">
+            <button name="button" class="close">X</button>
+            <?= $error ?>
+        </div> <?php
     }
 }
 
-// Handling sucecss messages.
+// Handling success messages.
 if(isset($_SESSION['success'])) {
-    $message = $_SESSION['success'];
+    $success = $_SESSION['success'];
     unset($_SESSION['success']);
     ?>
-    <div class="success"><?= $message ?></div> <?php
+    <div class="message success">
+        <button name="button" class="close">X</button>
+        <?= $success ?>
+    </div> <?php
 }
 ?>
 <h1>L'univers des dragons</h1>
@@ -49,8 +55,8 @@ if(isset($_SESSION['success'])) {
 </main>
 
 
-
-<script src=" /asset/js/carousel.js"
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/asset/js/app.js"></script>
+<script src=" /asset/js/carousel.js"></script>
 </body>
 </html>
