@@ -7,7 +7,15 @@ class AdminController extends AbstractController
 
     public function index()
     {
-        $this->render('page/admin');
+//        if((new App\Model\Entity\User)->getId() !== 1 ) {
+//            $errorMessage = "Seul un administrateur peut accéder à cette partie";
+//            $_SESSION['errors'] [] = $errorMessage;
+//            $this->render('home/index');
+//        }
+//        else {
+            $this->render('page/admin');
+//        }
+
     }
 
     public function delUser()

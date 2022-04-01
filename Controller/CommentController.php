@@ -8,7 +8,15 @@ class CommentController extends AbstractController
 {
     public function index()
     {
-        $this->render('comment/add-comment');
+        if((new App\Model\Entity\User)->getId() === 2 ) {
+            $this->render('comment/add-comment');
+        }
+        else {
+            $errorMessage = "Il faut être connecté pour laisser un commentaire";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
+
     }
 
     public function listComment()
@@ -21,12 +29,6 @@ class CommentController extends AbstractController
      */
     public function addComment(int $id)
     {
-        if(!self::userConnected()) {
-            $errorMessage = "Il faut être connecter pour pouvoir écrire un commentaire";
-            $_SESSION['errors'] [] = $errorMessage;
-            $this->render('home/index');
-        }
-
         //clean data
         $content = $this->clean($this->getFormField('content'));
 
