@@ -83,7 +83,7 @@ class Routing
                 $controller->$action($id);
             }
             else {
-                $controller->$action((int)$id);
+                $controller->$action();
             }
         }
         else {

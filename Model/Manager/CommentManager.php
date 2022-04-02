@@ -5,6 +5,9 @@ use App\Model\Entity\Comment;
 
 class CommentManager {
 
+    /**
+     * @return array
+     */
     public static function findAllComment(): Array
     {
         $comment = [];
@@ -19,6 +22,23 @@ class CommentManager {
     }
 
     /**
+     * Select a comment with their id
+     * @param int $id
+     * @return Comment
+     */
+    public static function getComment(int $id): Comment {
+        $stmt = DB::getPDO()->query("SELECT * FROM comments WHERE id = '$id'");
+        $stmt->fetch();
+        return (new Comment())
+            ->setId($id)
+            ->setContent($stmt['content'])
+            ->setArticle($stmt['article_id'])
+            ->setAuthor($stmt['user_id'])
+            ;
+    }
+
+    /**
+     * Add a comment in tne DB
      * @param Comment $comment
      * @return bool
      */
@@ -28,13 +48,12 @@ class CommentManager {
             INSERT INTO comments (content, article_id, user_id) VALUES (:content, :article_id, :user_id)
         ");
 
-        $stmt->bindValue(':content', $comment->getContent());
-        $stmt->bindValue(':article_id', $comment->getArticle()->getId());
-        $stmt->bindValue(':user_id', $comment->getAuthor()->getId());
+        $stmt->bindValue('content', $comment->getcontent());
+        $stmt->bindValue('article_id', $comment->getArticle()->getId());
+        $stmt->bindValue('user_id', $comment->getAuthor()->getId());
 
-        $result = $stmt->execute();
         $comment->setId(DB::getPDO()->lastInsertId());
-        return $result;
+        return $stmt->execute();
     }
 
     /**
@@ -71,7 +90,7 @@ class CommentManager {
     {
         if (self::commentExist($id)) {
             return DB::getPDO()->exec(
-                "DELETE FROM article WHERE id = '$id'
+                "DELETE FROM comments WHERE id = '$id'
             ");
         }
         return false;

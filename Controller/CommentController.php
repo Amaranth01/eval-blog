@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\AbstractController;
+use App\Model\DB;
 use App\Model\Entity\Comment;
 use App\Model\Manager\ArticleManager;
 
@@ -8,15 +9,18 @@ class CommentController extends AbstractController
 {
     public function index()
     {
-        if((new App\Model\Entity\User)->getId() === 2 ) {
-            $this->render('comment/add-comment');
-        }
-        else {
-            $errorMessage = "Il faut être connecté pour laisser un commentaire";
-            $_SESSION['errors'] [] = $errorMessage;
-            $this->render('home/index');
-        }
+//        if((new App\Model\Entity\User)->getId() === 1 ) {
+//            $this->render('comment/add-comment', $data=[$id]);
+//        }
+//        else {
+//            $errorMessage = "Il faut être connecté pour laisser un commentaire";
+//            $_SESSION['errors'] [] = $errorMessage;
+//            $this->render('home/index');
+//        }
+    }
 
+    public function pageAddComment($id){
+        $this->render('comment/add-comment', $data=[$id]);
     }
 
     public function listComment()
@@ -25,7 +29,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      */
     public function addComment(int $id)
     {
@@ -34,8 +38,10 @@ class CommentController extends AbstractController
 
         //Checks if the user is logged in
         $author = self::getConnectedUser();
+        $article = ArticleManager::articleExist($id);
         $comment = (new Comment())
             ->setContent($content)
+            ->setArticle($article)
             ->setAuthor($author)
         ;
 
@@ -55,6 +61,9 @@ class CommentController extends AbstractController
         ]);
     }
 
+    /**
+     * @param $id
+     */
     public function updateComment($id)
     {
         //We check that the input fields are complete

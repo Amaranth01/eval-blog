@@ -15,7 +15,7 @@ foreach (ArticleManager::findAll() as $article) {
 
             <p><?=$article->getContent() ?></p>
 
-            <p><a href="/index.php?c=comment&a=index">Ajouter un commentaire</a></p>
+            <p><a href="/index.php?c=comment&a=page-add-comment">Ajouter un commentaire</a></p>
         </div>
         <br> <br>
     </div>
