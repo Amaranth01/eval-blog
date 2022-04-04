@@ -1,8 +1,8 @@
 <?php
-    if ($_SESSION['user']->getRole() !== 'admin') {
-        header('Location: index.php');
-    }
-?>
+//    if ($_SESSION['user']->getRole() !== 'admin') {
+//        header('Location: index.php');
+//    }
+//?>
 
 <h1>Espace d'administration</h1>
 

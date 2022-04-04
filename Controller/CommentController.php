@@ -11,14 +11,7 @@ class CommentController extends AbstractController
 {
     public function index()
     {
-//        if((new App\Model\Entity\User)->getId() === 1 ) {
-//            $this->render('comment/add-comment', $data=[$id]);
-//        }
-//        else {
-//            $errorMessage = "Il faut être connecté pour laisser un commentaire";
-//            $_SESSION['errors'] [] = $errorMessage;
-//            $this->render('home/index');
-//        }
+
     }
 
     public function pageAddComment(int $id){
@@ -27,7 +20,11 @@ class CommentController extends AbstractController
 
     public function listComment()
     {
-        $this->render('comment/all-comment');
+        $this->render('comment/list-comment');
+    }
+
+    public function editComment(int $id) {
+        $this->render('comment/update-comment', $data=[$id]);
     }
 
     /**
@@ -40,11 +37,14 @@ class CommentController extends AbstractController
 
         //Checks if the user is logged in
         $author = self::getConnectedUser();
+        //Verification that the article exists by its ID
         $article = ArticleManager::articleExist($id);
+        //If it does not exist then it is returned to the index
         if ($article === false) {
             $this->render('home/index');
             exit();
         }
+        //Creating a new comment object
         $comment = (new Comment())
             ->setContent($content)
             ->setArticle(ArticleManager::getArticle($id))
@@ -82,5 +82,14 @@ class CommentController extends AbstractController
 
         $comment = new CommentManager();
         $comment->updateComment($newContent, $id);
+
+        $this->render('page/admin');
+    }
+
+    public function deleteComment(int $id) {
+        if(CommentManager::commentExist($id)) {
+            $deleted = CommentManager::delComment($id);
+            $this->render('page/admin');
+        }
     }
 }
