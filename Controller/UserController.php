@@ -140,8 +140,6 @@ class UserController extends AbstractController
             $successMessage = "Vous êtes connecté";
             $_SESSION['success'] = $successMessage;
             $this->render('home/index');
-
-            var_dump($user);
         }
 
     /**

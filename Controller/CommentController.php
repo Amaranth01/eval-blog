@@ -2,8 +2,10 @@
 
 use App\Controller\AbstractController;
 use App\Model\DB;
+use App\Model\Entity\Article;
 use App\Model\Entity\Comment;
 use App\Model\Manager\ArticleManager;
+use App\Model\Manager\UserManager;
 
 class CommentController extends AbstractController
 {
@@ -19,7 +21,7 @@ class CommentController extends AbstractController
 //        }
     }
 
-    public function pageAddComment($id){
+    public function pageAddComment(int $id){
         $this->render('comment/add-comment', $data=[$id]);
     }
 
@@ -39,9 +41,13 @@ class CommentController extends AbstractController
         //Checks if the user is logged in
         $author = self::getConnectedUser();
         $article = ArticleManager::articleExist($id);
+        if ($article === false) {
+            $this->render('home/index');
+            exit();
+        }
         $comment = (new Comment())
             ->setContent($content)
-            ->setArticle($article)
+            ->setArticle(ArticleManager::getArticle($id))
             ->setAuthor($author)
         ;
 
@@ -55,7 +61,7 @@ class CommentController extends AbstractController
 
         $articleManager = new ArticleManager();
         $commentManager = new CommentManager();
-        $commentManager->addNewComment($comment, $id);
+        $commentManager->addNewComment($comment);
         $this->render('home/index', [
             'article' => $articleManager->getArticle($id)
         ]);

@@ -2,6 +2,8 @@
 
 use App\Model\DB;
 use App\Model\Entity\Comment;
+use App\Model\Manager\ArticleManager;
+use App\Model\Manager\UserManager;
 
 class CommentManager {
 
@@ -14,8 +16,15 @@ class CommentManager {
         $result = DB::getPDO()->query("SELECT * FROM comments ");
 
         if($result) {
+            $commentManager = new CommentManager();
+
             foreach ($result->fetchAll() as $data) {
-                $users[] = self::addNewComment($data);
+                $comment[] = (new Comment())
+                    ->setId($data['id'])
+                    ->setContent($data['content'])
+                    ->setArticle(ArticleManager::getArticle($data['article_id']))
+                    ->setAuthor(UserManager::getUser($data['user_id']))
+                    ;
             }
         }
         return $comment;
@@ -39,12 +48,12 @@ class CommentManager {
 
     /**
      * Add a comment in tne DB
-     * @param Comment $comment
+     * @param $comment
      * @return bool
      */
-    public static function addNewComment(Comment $comment): bool
+    public static function addNewComment($comment): bool
     {
-        $stmt = DB::getPDO()->prepare("
+         $stmt = DB::getPDO()->prepare("
             INSERT INTO comments (content, article_id, user_id) VALUES (:content, :article_id, :user_id)
         ");
 

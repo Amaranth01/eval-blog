@@ -33,6 +33,10 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
+$user = $_SESSION['user'];
+echo"<pre>";
+var_dump($user);
+echo"</pre>";
 ?>
 <h1>L'univers des dragons</h1>
 

@@ -15,7 +15,7 @@ foreach (ArticleManager::findAll() as $article) {
 
             <p><?=$article->getContent() ?></p>
 
-            <p><a href="/index.php?c=comment&a=page-add-comment">Ajouter un commentaire</a></p>
+            <p><a href="/index.php?c=comment&a=page-add-comment&id=<?=$article->getId() ?>">Ajouter un commentaire</a></p>
         </div>
         <br> <br>
     </div>
@@ -29,14 +29,13 @@ foreach (ArticleManager::findAll() as $article) {
     foreach (CommentManager::findAllComment() as $comment) {
         ?>
             <div class="comment">
-                <p class="artTitle"><?= $comment->getTitle()?></p>
+                <p class="artTitle"><?= $comment->getContent()?></p>
                 <br>
-
-                <p><?=$comment->getContent() ?></p>
             </div>
             <br> <br>
         </div>
 
         <?php
+
 }
 ?>

@@ -74,10 +74,16 @@ class ArticleManager
      * @param int $id
      * @return int|mixed
      */
-    public static function articleExist(int $id): ?int
+    public static function articleExist(int $id): bool
     {
-        $result = DB::getPDO()->query("SELECT count(*) FROM article WHERE id = '$id'");
-        return $result ? $result->fetch(): 0;
+        $result = DB::getPDO()->query("SELECT count(*) FROM article WHERE id = $id") ;
+
+        if($result->fetch()['count(*)']>0) {
+            return $id;
+        }
+        else {
+            return false;
+        }
     }
 
     /**

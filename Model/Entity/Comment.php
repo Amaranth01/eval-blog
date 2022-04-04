@@ -19,6 +19,7 @@ class Comment extends AbstractEntity
 
     /**
      * @param string $content
+     * @return Comment
      */
     public function setContent(string $content): self
     {
@@ -36,6 +37,7 @@ class Comment extends AbstractEntity
 
     /**
      * @param User $author
+     * @return Comment
      */
     public function setAuthor(User $author): self
     {
@@ -53,6 +55,7 @@ class Comment extends AbstractEntity
 
     /**
      * @param Article $article
+     * @return Comment
      */
     public function setArticle(Article $article): self
     {

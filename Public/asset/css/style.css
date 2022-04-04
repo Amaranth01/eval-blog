@@ -175,3 +175,7 @@ tr, td {
 .success {
     background-color: green;
 }
+
+pre {
+  font-size: 2rem;
+}

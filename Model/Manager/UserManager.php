@@ -6,7 +6,7 @@ use App\Model\DB;
 use App\Model\Entity\Role;
 use App\Model\Entity\User;
 
-final class UserManager
+class UserManager
 {
     /**
      * Returns all users
