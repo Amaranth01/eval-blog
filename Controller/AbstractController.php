@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Entity\User;
+use App\Model\Manager\RoleManager;
 
 abstract class AbstractController
 {
@@ -67,15 +68,6 @@ abstract class AbstractController
     }
 
     /**
-     * Checks if an admin is already logged in
-     * @return bool
-     */
-    public static function adminConnected(): bool
-    {
-        return isset($_SESSION['admin']) && null !== ($_SESSION['admin'])->getId();
-    }
-
-    /**
      * Returns a logged-in user, or null if not logged in.
      * @return User|null
      */
@@ -86,4 +78,23 @@ abstract class AbstractController
         }
         return ($_SESSION['user']);
     }
+
+    /**
+     * Checks if an admin is already logged in
+     * @return bool
+     */
+    public static function adminConnected(): bool
+    {
+        return $_SESSION['user']->getRole()->getRoleName() === 'admin';
+    }
+
+   public static function getAdminConnected()
+   {
+       if(!self::adminConnected()) {
+           return null;
+       }
+       else {
+           RoleManager::getRoleById(1);
+       }
+   }
 }

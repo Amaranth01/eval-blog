@@ -85,8 +85,8 @@ class CommentManager {
         $stmt = DB::getPDO()->prepare("UPDATE comments 
         SET content = :newContent WHERE id = :id");
 
-        $stmt->bindParam('newContent', $newContent);
-        $stmt->bindParam('id', $id);
+        $stmt->bindValue('newContent', $newContent);
+        $stmt->bindValue('id', $id);
 
         $stmt->execute();
     }

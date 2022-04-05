@@ -67,11 +67,11 @@ class ArticleController extends AbstractController
     public function deleteArticle(int $id)
     {
         //Verify that the user has admin status
-//        if(!self::adminConnected()) {
-//            $errorMessage = "Seul un administrateur peut supprimer un article";
-//            $_SESSION['errors'] [] = $errorMessage;
-//            $this->render('home/index');
-//        }
+        if(self::userConnected()) {
+            $errorMessage = "Seul un administrateur peut supprimer un article";
+            $_SESSION['errors'] [] = $errorMessage;
+            $this->render('home/index');
+        }
         //Check that the article exists
         if(ArticleManager::articleExist($id)) {
             $deleted = ArticleManager::deleteArticle($id);
@@ -82,10 +82,10 @@ class ArticleController extends AbstractController
     public function updateArticle($id)
     {
         //Verify that the user has admin status
-//        self::adminConnected();
-//        $errorMessage = "Seul un administrateur peut modifier un article";
-//        $_SESSION['errors'] [] = $errorMessage;
-//        $this->render('home/index');
+        self::userConnected();
+        $errorMessage = "Seul un administrateur peut modifier un article";
+        $_SESSION['errors'] [] = $errorMessage;
+        $this->render('home/index');
 
         //We check that the input fields are complete
         if (!isset($_POST['title']) || !isset($_POST['content'])) {

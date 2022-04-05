@@ -11,6 +11,8 @@
 <body>
 <?php
 // Handling error messages.
+use App\Controller\AbstractController;
+
 if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
     $errors = $_SESSION['errors'];
     unset($_SESSION['errors']);
@@ -33,31 +35,39 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
-$user = $_SESSION['user'];
-echo"<pre>";
-var_dump($user);
-echo"</pre>";
-?>
+
+
+//?>
 <h1>L'univers des dragons</h1>
 
     <nav>
         <ul>
             <li><a href="/index.php?c=home&a=index">Page d'accueil</a></li>
-            <li><a href="/index.php?c=article&a=index">Ajouter un article</a></li>
-            <?php if(UserController::adminConnected()) {?>
-            <li><a href="/index.php?c=admin&a=index">Espace administration</a></li>
             <?php
+            //Display links if the user is logged in
+            if(UserController::userConnected()) { ?>
+                <li><a href="/index.php?c=article&a=index">Ajouter un article</a></li>
+                <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
+                <?php
             }
-            ?>
-            <?php if(UserController::userConnected()) {?>
-            <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
-            <?php
-            }
-            else {
-                ?>
+            //  Display links if the user is not logged in
+            else { ?>
                 <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
-           <?php }
-            ?>
+                <?php
+            } ?>
+
+            <?php
+            // Display links if the admin is logged in
+            if(UserController::userConnected() && UserController::adminConnected()) { ?>
+                <li><a href="/index.php?c=admin&a=index">Espace administration</a></li>
+                <?php
+            }
+            else { ?>
+
+                <?php
+            } ?>
+
+
         </ul>
     </nav>
 
