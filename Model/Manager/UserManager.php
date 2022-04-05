@@ -33,18 +33,15 @@ class UserManager
     private static function createUser(array $data): User
     {
         //Retrieve the role id to prepare the assignment
-        $role_id = $data['role_id'];
-        $role = RoleManager::getRoleByName($role_id);
+        $role = RoleManager::getRoleById($data['role_id']);
         //Prepare the creation of the new user
-        $user = (new User())
+        return (new User())
             ->setId($data['id'])
             ->setEmail($data['email'])
             ->setUsername($data['username'])
             ->setPassword($data['password'])
             ->setRole($role)
         ;
-        //Assign a role to a new user
-        return $user->setRole(RoleManager::getRoleByName('user'));
     }
 
     /**
@@ -57,7 +54,6 @@ class UserManager
         $result = DB::getPDO()->query("SELECT count(*) FROM user WHERE email = '$mail'");
         return $result ? $result->fetch() : null;
     }
-
 
     /**
      * Find a user with their id.

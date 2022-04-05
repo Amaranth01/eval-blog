@@ -153,6 +153,7 @@ class UserController extends AbstractController
             $errorMessage = "Seul un administrateur peut supprimer un utilisateur";
             $_SESSION['errors'] [] = $errorMessage;
             $this->render('home/index');
+            exit();
         }
 
         if(UserManager::userExists($id)) {

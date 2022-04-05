@@ -44,9 +44,20 @@ echo"</pre>";
         <ul>
             <li><a href="/index.php?c=home&a=index">Page d'accueil</a></li>
             <li><a href="/index.php?c=article&a=index">Ajouter un article</a></li>
-            <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
+            <?php if(UserController::adminConnected()) {?>
             <li><a href="/index.php?c=admin&a=index">Espace administration</a></li>
+            <?php
+            }
+            ?>
+            <?php if(UserController::userConnected()) {?>
             <li><a href="/index.php?c=logout&a=logout">Déconnexion</a></li>
+            <?php
+            }
+            else {
+                ?>
+                <li><a href="/index.php?c=home&a=connexion">Connexion/Inscription</a></li>
+           <?php }
+            ?>
         </ul>
     </nav>
 

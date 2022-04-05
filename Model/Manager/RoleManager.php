@@ -52,14 +52,17 @@ final class RoleManager
      */
     public static function getRoleById(int $id): Role
     {
-        $roleId = new Role();
-        $request = DB::getPDO()->query("
-            SELECT * FROM user WHERE role_id = '".$id."'
+        $role= new Role();
+        $request = DB::getPDO()->prepare("
+            SELECT * FROM role WHERE id = :id
         ");
-        if($request && $roleData = $request->fetch()) {
-            $roleId->setId($roleData['id']);
+        $request->bindValue(':id', $id);
+        $request->execute();
+        if($roleData = $request->fetch()) {
+            $role->setId($roleData['id']);
+            $role->setRoleName($roleData['role_name']);
         }
-        return $roleId;
+        return $role;
     }
 
 }
