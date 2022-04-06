@@ -8,12 +8,19 @@ use App\Model\Manager\UserManager;
 class CommentManager {
 
     /**
+     * @param int $limit
      * @return array
      */
-    public static function findAllComment(): Array
+    public static function findAllComment(int $limit=0): Array
     {
         $comment = [];
-        $result = DB::getPDO()->query("SELECT * FROM comments ");
+        //Add a limit to the number of visible comments
+        if($limit === 0) {
+            $result = DB::getPDO()->query("SELECT * FROM comments ");
+        }
+        else {
+            $result = DB::getPDO()->query("SELECT * FROM comments ORDER BY id DESC LIMIT " . $limit);
+        }
 
         if($result) {
             $commentManager = new CommentManager();

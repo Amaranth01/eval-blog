@@ -20,22 +20,22 @@ foreach (ArticleManager::findAll() as $article) {
         <br> <br>
     </div>
 
+
     <?php
 }?>
-<div id="contentComment" >
+
 
     <h2 id="titleComment">Les derniers commentaires</h2>
     <?php
-    foreach (CommentManager::findAllComment() as $comment) {
+    foreach (CommentManager::findAllComment(5) as $comment) {
         ?>
+        <div id="contentComment" >
             <div class="comment">
                 <p class="artTitle"><?= $comment->getContent()?></p>
                 <br>
             </div>
             <br> <br>
         </div>
-
-        <?php
-
-}
-?>
+     <?php
+        }
+    ?>

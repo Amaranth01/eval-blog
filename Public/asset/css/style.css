@@ -119,29 +119,14 @@ tr, td {
 
 /*index article style*/
 
-#contentArticle {
+#contentComment, #contentArticle {
     display: flex;
-    justify-content: left;
-    flex-direction: row-reverse;
-    width: 45vw;
-    margin-left: 1.5rem;
+    justify-content: center;
+    align-items: center;
 }
 
-#contentComment {
-    display: flex;
-    justify-content: right;
-    flex-direction: row-reverse;
-}
-
-#titleArt {
-    text-align: left;
-    margin-left: 10vw;
-}
-
-#titleComment {
-    width: 30vw;
-    text-align: right;
-    margin-right: 10vw;
+#titleArt, #titleComment {
+    text-align: center;
 }
 
 .article, .comment {
@@ -154,7 +139,7 @@ tr, td {
     padding: 1rem;
     box-shadow: #868686 -4px -2px 5px 5px;
 }
-
+/*message error or success style*/
 .message {
     font-size: 1.5rem;
     font-style: italic;
@@ -174,8 +159,4 @@ tr, td {
 
 .success {
     background-color: green;
-}
-
-pre {
-  font-size: 2rem;
 }
