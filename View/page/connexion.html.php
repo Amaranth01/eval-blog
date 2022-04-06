@@ -13,6 +13,6 @@
             <input type="submit" name="submit" value="submit">
         </form>
 
-    <div>
+    <div id="register">
         <p>Pas de compte ? <a href="/index.php?c=home&a=register">Inscrivez-vous ici.</a></p>
     </div>
