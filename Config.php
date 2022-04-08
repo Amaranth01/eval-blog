@@ -6,8 +6,8 @@ class Config {
 
     // Database configuration
     public const DB_CHARSET = 'utf8';
-    public const DB_NAME = 'eval_blog';
+    public const DB_NAME = 'nqvo6106_eval_blog';
     public const DB_HOST = 'localhost';
-    public const DB_USERNAME = 'root';
-    public const DB_PASSWORD = '';
+    public const DB_USERNAME = 'nqvo6106_vane';
+    public const DB_PASSWORD = 'Pimousse.01';
 }
