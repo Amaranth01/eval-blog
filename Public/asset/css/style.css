@@ -167,6 +167,11 @@ tr, td {
     background-color: green;
 }
 
+/*Footer style */
+footer {
+    margin-top: 2rem;
+}
+
 /*Responsive*/
 
 @media screen and (max-width: 700px){

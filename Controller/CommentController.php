@@ -80,9 +80,10 @@ class CommentController extends AbstractController
 
         $newContent = $this->clean($_POST['content']);
 
-        $comment = new CommentManager();
-        $comment->updateComment($newContent, $id);
-
+        $commentManager = new CommentManager($newContent, $id);
+        $commentManager->updateComment($newContent, $id);
+        var_dump($commentManager);
+        exit();
         $this->render('page/admin');
     }
 

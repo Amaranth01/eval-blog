@@ -43,13 +43,13 @@ class CommentManager {
      * @return Comment
      */
     public static function getComment(int $id): Comment {
-        $stmt = DB::getPDO()->query("SELECT * FROM comments WHERE id = '$id'");
-        $stmt->fetch();
+        $result = DB::getPDO()->query("SELECT * FROM comments WHERE id = '$id'");
+        $result = $result->fetch();
         return (new Comment())
             ->setId($id)
-            ->setContent($stmt['content'])
-            ->setArticle($stmt['article_id'])
-            ->setAuthor($stmt['user_id'])
+            ->setContent($result['content'])
+            ->setArticle(ArticleManager::getArticle($result['article_id']))
+            ->setAuthor(UserManager::getUser($result['user_id']))
             ;
     }
 
@@ -92,8 +92,8 @@ class CommentManager {
         $stmt = DB::getPDO()->prepare("UPDATE comments 
         SET content = :newContent WHERE id = :id");
 
-        $stmt->bindValue('newContent', $newContent);
-        $stmt->bindValue('id', $id);
+        $stmt->bindParam('newContent', $newContent);
+        $stmt->bindParam('id', $id);
 
         $stmt->execute();
     }

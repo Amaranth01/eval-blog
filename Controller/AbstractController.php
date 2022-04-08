@@ -22,6 +22,10 @@ abstract class AbstractController
         require __DIR__ . '/../View/base.html.php';
     }
 
+    /**
+     * @param string $data
+     * @return string
+     */
     protected static function clean(string $data): string
     {
         $data = trim($data);

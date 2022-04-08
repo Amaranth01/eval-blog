@@ -29,14 +29,12 @@ class UserController extends AbstractController
         return $_POST[$field];
     }
 
-
-
     /**
-     * Cleans and checks the security of elements
+     * Add a user
      */
     public function register ()
     {
-
+        //Cleans and checks the security of elements
         if ($this->formSubmitted()) {
             $mail = $this->clean($this->formField('email'));
             $username = $this->clean($this->formField('username'));

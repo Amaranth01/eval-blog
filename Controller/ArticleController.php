@@ -82,7 +82,7 @@ class ArticleController extends AbstractController
     public function updateArticle($id)
     {
         //Verify that the user has admin status
-        self::userConnected();
+        self::adminConnected();
         $errorMessage = "Seul un administrateur peut modifier un article";
         $_SESSION['errors'] [] = $errorMessage;
         $this->render('home/index');
