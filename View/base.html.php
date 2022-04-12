@@ -36,7 +36,7 @@ if(isset($_SESSION['success'])) {
     </div> <?php
 }
 
-
+var_dump($_SESSION['user']);
 //?>
 <h1>L'univers des dragons</h1>
 
@@ -71,7 +71,7 @@ if(isset($_SESSION['success'])) {
         </ul>
     </nav>
 
-  <div id="container">
+  <div id="carouselContainer">
         <img id="carousel" src="" alt="">
   </div>
 

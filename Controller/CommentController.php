@@ -37,6 +37,8 @@ class CommentController extends AbstractController
 
         //Checks if the user is logged in
         $author = self::getConnectedUser();
+        $errorMessage = "Il faut être connecter pour pouvoir écrire un commentaire";
+        $_SESSION['errors'] [] = $errorMessage;
         //Verification that the article exists by its ID
         $article = ArticleManager::articleExist($id);
         //If it does not exist then it is returned to the index
@@ -82,8 +84,6 @@ class CommentController extends AbstractController
 
         $commentManager = new CommentManager($newContent, $id);
         $commentManager->updateComment($newContent, $id);
-        var_dump($commentManager);
-        exit();
         $this->render('page/admin');
     }
 
