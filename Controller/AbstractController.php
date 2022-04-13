@@ -92,13 +92,4 @@ abstract class AbstractController
         return $_SESSION['user']->getRole()->getRoleName() === 'admin';
     }
 
-   public static function getAdminConnected()
-   {
-       if(!self::adminConnected()) {
-           return null;
-       }
-       else {
-           RoleManager::getRoleById(1);
-       }
-   }
 }

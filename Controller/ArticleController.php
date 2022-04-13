@@ -67,7 +67,7 @@ class ArticleController extends AbstractController
     public function deleteArticle(int $id)
     {
         //Verify that the user has admin status
-        if(self::userConnected()) {
+        if(self::adminConnected()) {
             $errorMessage = "Seul un administrateur peut supprimer un article";
             $_SESSION['errors'] [] = $errorMessage;
             $this->render('home/index');

@@ -35,9 +35,7 @@ if(isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
-
-var_dump($_SESSION['user']);
-//?>
+?>
 <h1>L'univers des dragons</h1>
 
     <nav>
