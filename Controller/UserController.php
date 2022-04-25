@@ -10,9 +10,7 @@ class UserController extends AbstractController
 
     public function index()
     {
-        $this->render('page/admin', [
-            'users_list' => UserManager::getAll()
-        ]);
+        $this->render('page/admin');
     }
 
     /**
@@ -67,7 +65,8 @@ class UserController extends AbstractController
             //Count the mistakes
             if (count($error) > 0) {
                 $_SESSION['errors'] = $error;
-            } else {
+            }
+            else {
                 //If no error is detected the program goes to else and authorizes the recording
                 $user = new User();
                 $role = RoleManager::getRoleByName('user');

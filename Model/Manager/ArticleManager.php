@@ -9,7 +9,7 @@ use DateTime;
 class ArticleManager
 {
     /**
-     * Return all users.
+     * Return all articles.
      * @return array
      */
     public static function findAll(): array

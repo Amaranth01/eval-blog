@@ -11,7 +11,7 @@ class CommentManager {
      * @param int $limit
      * @return array
      */
-    public static function findAllComment(int $limit=0): Array
+    public static function findAllComment(int $limit = 0): Array
     {
         $comment = [];
         //Add a limit to the number of visible comments
@@ -23,7 +23,6 @@ class CommentManager {
         }
 
         if($result) {
-            $commentManager = new CommentManager();
 
             foreach ($result->fetchAll() as $data) {
                 $comment[] = (new Comment())

@@ -75,7 +75,7 @@ class ArticleController extends AbstractController
         //Check that the article exists
         if(ArticleManager::articleExist($id)) {
             $deleted = ArticleManager::deleteArticle($id);
-            $this->render('home/index');
+            $this->render('page/admin');
         }
     }
 
@@ -84,11 +84,11 @@ class ArticleController extends AbstractController
         //Verify that the user has admin status
         self::adminConnected();
         $errorMessage = "Seul un administrateur peut modifier un article";
-        $_SESSION['errors'] [] = $errorMessage;
+        $_SESSION['errors'] = $errorMessage;
         $this->render('home/index');
 
         //We check that the input fields are complete
-        if (!isset($_POST['title']) || !isset($_POST['content'])) {
+        if (!isset($_POST['title']) && !isset($_POST['content'])) {
             $this->render('home/index');
             exit();
         }
@@ -99,6 +99,6 @@ class ArticleController extends AbstractController
         $article= new ArticleManager($newTitle, $newContent, $id);
         $article->updateArticle($newTitle, $newContent, $id);
 
-        $this->render('home/index');
+        $this->render('page/admin');
     }
 }

@@ -5,10 +5,8 @@ namespace App\Controller;
 use App\Model\Entity\User;
 use App\Model\Manager\RoleManager;
 
-abstract class AbstractController
+class AbstractController
 {
-    abstract public function index();
-
     /**
      * @param string $template
      * @param array $data
@@ -92,4 +90,13 @@ abstract class AbstractController
         return $_SESSION['user']->getRole()->getRoleName() === 'admin';
     }
 
+   public static function getAdminConnected()
+   {
+       if(!self::adminConnected()) {
+           return null;
+       }
+       else {
+           RoleManager::getRoleById(1);
+       }
+   }
 }

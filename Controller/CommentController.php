@@ -38,14 +38,17 @@ class CommentController extends AbstractController
         //Checks if the user is logged in
         $author = self::getConnectedUser();
         $errorMessage = "Il faut être connecter pour pouvoir écrire un commentaire";
-        $_SESSION['errors'] [] = $errorMessage;
+        $_SESSION['errors'] = $errorMessage;
+
         //Verification that the article exists by its ID
+
         $article = ArticleManager::articleExist($id);
         //If it does not exist then it is returned to the index
         if ($article === false) {
             $this->render('home/index');
             exit();
         }
+
         //Creating a new comment object
         $comment = (new Comment())
             ->setContent($content)
@@ -56,7 +59,7 @@ class CommentController extends AbstractController
         //Check that the fields are free, otherwise we exit
         $errorMessage = "Le champ doit être rempli";
         if(empty($content)) {
-            $_SESSION['errors'][] = $errorMessage;
+            $_SESSION['errors'] = $errorMessage;
             $this->render('home/index');
             exit();
         }
@@ -84,13 +87,13 @@ class CommentController extends AbstractController
 
         $commentManager = new CommentManager($newContent, $id);
         $commentManager->updateComment($newContent, $id);
-        $this->render('page/admin');
+        $this->render('admin/index');
     }
 
     public function deleteComment(int $id) {
         if(CommentManager::commentExist($id)) {
             $deleted = CommentManager::delComment($id);
-            $this->render('page/admin');
+            $this->render('admin/index');
         }
     }
 }
